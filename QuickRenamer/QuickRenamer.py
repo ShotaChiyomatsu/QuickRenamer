@@ -207,22 +207,19 @@ class Gui(QtWidgets.QDialog):
         try:   
             if self.numberBox.currentText() == 'Default':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], self.nameEdit.text())
+                    cmds.rename(self.nameEdit.text())
                 
             elif self.numberBox.currentText() == 'Number':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.nameEdit.text(), str(i)))
+                    cmds.rename('{}{}'.format(self.nameEdit.text(), str(i)))
                 
             elif self.numberBox.currentText() == 'ALPHABET':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.nameEdit.text(), self.ALPHALIST[i]))
+                    cmds.rename('{}{}'.format(self.nameEdit.text(), self.ALPHALIST[i]))
                 
             elif self.numberBox.currentText() == 'alphabet':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.nameEdit.text(), self.alphalist[i]))
+                    cmds.rename('{}{}'.format(self.nameEdit.text(), self.alphalist[i]))
             
         except Exception as e:
             print '同名のノードがあります / There is a node with the same name',
@@ -235,23 +232,23 @@ class Gui(QtWidgets.QDialog):
         try:
             if self.numberBox.currentText() == 'Default':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.prefixEdit.text(), selection[i].split("|")[-1:][0]))
+                    cmds.rename('{}{}'.format(self.prefixEdit.text(), 
+                    selection[i].split("|")[-1:][0]))
                 
             elif self.numberBox.currentText() == 'Number':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.prefixEdit.text() + str(i), selection[i].split("|")[-1:][0]))
+                    cmds.rename('{}{}'.format(self.prefixEdit.text() + str(i), 
+                    selection[i].split("|")[-1:][0]))
                 
             elif self.numberBox.currentText() == 'ALPHABET':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.prefixEdit.text() + self.ALPHALIST[i], selection[i].split("|")[-1:][0]))
+                    cmds.rename('{}{}'.format(self.prefixEdit.text() + self.ALPHALIST[i], 
+                    selection[i].split("|")[-1:][0]))
                 
             elif self.numberBox.currentText() == 'alphabet':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(self.prefixEdit.text() + self.alphalist[i], selection[i].split("|")[-1:][0]))
+                    cmds.rename('{}{}'.format(self.prefixEdit.text() + self.alphalist[i], 
+                    selection[i].split("|")[-1:][0]))
             
         except Exception as e:
             print '同名のノードがあります / There is a node with the same name',
@@ -264,24 +261,24 @@ class Gui(QtWidgets.QDialog):
         try:
             if self.numberBox.currentText() == 'Default':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(selection[i].split("|")[-1:][0], self.suffixEdit.text()))
-                
+                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                    self.suffixEdit.text()))
+                    
             elif self.numberBox.currentText() == 'Number':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(selection[i].split("|")[-1:][0], self.suffixEdit.text() + str(i)))
+                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][i], 
+                    self.suffixEdit.text() + str(i)))
                 
             elif self.numberBox.currentText() == 'ALPHABET':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(selection[i].split("|")[-1:][0], self.suffixEdit.text() + self.ALPHALIST[i]))
+                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                    self.suffixEdit.text() + self.ALPHALIST[i]))
                 
             elif self.numberBox.currentText() == 'alphabet':
                 for i in range(len(selection)):
-                    cmds.rename(selection[i], 
-                    '{}{}'.format(selection[i].split("|")[-1:][0], self.suffixEdit.text() + self.alphalist[i]))
-
+                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                    self.suffixEdit.text() + self.alphalist[i]))
+        
         except Exception as e:
             print '同名のノードがあります / There is a node with the same name',
         
@@ -293,26 +290,26 @@ class Gui(QtWidgets.QDialog):
         try:
             if self.numberBox.currentText() == 'Default':
                 for i in range(len(selection)):
-                    replaceName = re.sub(self.searchEdit.text(), self.replaceEdit.text(), selection[i])
-                    cmds.rename(selection[i], replaceName)
+                    replaceName = re.sub(self.searchEdit.text(), self.replaceEdit.text(), selection[i].split("|")[-1:][0])
+                    cmds.rename(replaceName)
             
             elif self.numberBox.currentText() == 'Number':
                 for i in range(len(selection)):
                     replaceNum = self.replaceEdit.text() + str(i)
-                    replaceName = re.sub(self.searchEdit.text(), replaceNum, selection[i])
-                    cmds.rename(selection[i], replaceName)
+                    replaceName = re.sub(self.searchEdit.text(), replaceNum, selection[i].split("|")[-1:][0])
+                    cmds.rename(replaceName)
             
             elif self.numberBox.currentText() == 'ALPHABET':
                 for i in range(len(selection)):
                     replaceALPHA = self.replaceEdit.text() + self.ALPHALIST[i]
-                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i])
-                    cmds.rename(selection[i], replaceName)
+                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
+                    cmds.rename(replaceName)
             
             elif self.numberBox.currentText() == 'alphabet':
                 for i in range(len(selection)):
                     replaceALPHA = self.replaceEdit.text() + self.alphalist[i]
-                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i])
-                    cmds.rename(selection[i], replaceName)
+                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
+                    cmds.rename(replaceName)
             
         except Exception as e:
             print '同名のノードがあります / There is a node with the same name',
