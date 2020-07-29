@@ -17,15 +17,17 @@ def baseWindow():
 class Gui(QtWidgets.QDialog):
     def __init__(self, parent=baseWindow()):
         super(Gui, self).__init__(parent)
+        self.palette()
+        self.alphaBox()
         self.design()
     #---------------------------------------------------
     # Design
     #---------------------------------------------------
     def design(self):
         # Component
-        self.setWindowTitle('Quick Renamer')
+        self.setWindowTitle('Quick Renamer 2.0')
         self.setFixedSize(257, 315)
-        self.setWindowFlags(QtCore.Qt.Dialog|QtCore.Qt.WindowCloseButtonHint)
+        self.setWindowFlags(QtCore.Qt.Tool|QtCore.Qt.WindowCloseButtonHint)
         # Number
         numberBox = QtWidgets.QComboBox()
         numberBox.addItems(['Default', 'Number', 'ALPHABET', 'alphabet'])
@@ -110,49 +112,32 @@ class Gui(QtWidgets.QDialog):
         outputLayout.addWidget(suffixGroup)
         outputLayout.addWidget(searchGroup)
         outputLayout.addWidget(replaceGroup)
-        # Palette
-        backColor = "background:qlineargradient(x2:1, y1:0, x2:1, y2:1, stop:0.3#aa4b6b, stop:0.5#6b6b83 stop:0.8#3b8d99)"
-        groupColor = "background:rgba(158, 200, 226, 0.2);color:#f5f5f5;border-style:solid;border-width:0.2px;border-color:#f5f5f5;border-radius:4px"
-        labelColor = "background:rgba(255, 255, 255, 0);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
-        editColor = "background:rgba(158, 200, 226, 0.2);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
-        changeColor = "background:rgba(158, 200, 226, 0.5);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
         # Color
-        self.setStyleSheet(backColor)
-        numberGroup.setStyleSheet(groupColor)
-        nameGroup.setStyleSheet(groupColor)
-        prefixGroup.setStyleSheet(groupColor)
-        suffixGroup.setStyleSheet(groupColor)
-        searchGroup.setStyleSheet(groupColor)
-        replaceGroup.setStyleSheet(groupColor)
-        numberBox.setStyleSheet(labelColor)
-        nameLabel.setStyleSheet(labelColor)
-        nameEdit.setStyleSheet(editColor)
-        prefixLabel.setStyleSheet(labelColor)
-        prefixEdit.setStyleSheet(editColor)
-        suffixLabel.setStyleSheet(labelColor)
-        suffixEdit.setStyleSheet(editColor)
-        searchLabel.setStyleSheet(labelColor)
-        searchEdit.setStyleSheet(editColor)
-        replaceLabel.setStyleSheet(labelColor)
-        replaceEdit.setStyleSheet(editColor)
+        self.setStyleSheet(self.backColor)
+        numberGroup.setStyleSheet(self.groupColor)
+        nameGroup.setStyleSheet(self.groupColor)
+        prefixGroup.setStyleSheet(self.groupColor)
+        suffixGroup.setStyleSheet(self.groupColor)
+        searchGroup.setStyleSheet(self.groupColor)
+        replaceGroup.setStyleSheet(self.groupColor)
+        numberBox.setStyleSheet(self.labelColor)
+        nameLabel.setStyleSheet(self.labelColor)
+        nameEdit.setStyleSheet(self.editColor)
+        prefixLabel.setStyleSheet(self.labelColor)
+        prefixEdit.setStyleSheet(self.editColor)
+        suffixLabel.setStyleSheet(self.labelColor)
+        suffixEdit.setStyleSheet(self.editColor)
+        searchLabel.setStyleSheet(self.labelColor)
+        searchEdit.setStyleSheet(self.editColor)
+        replaceLabel.setStyleSheet(self.labelColor)
+        replaceEdit.setStyleSheet(self.editColor)
         # Instance
         self.numberBox = numberBox
-        self.editColor = editColor
         self.nameEdit = nameEdit
         self.prefixEdit = prefixEdit
         self.suffixEdit = suffixEdit
         self.searchEdit = searchEdit
         self.replaceEdit = replaceEdit
-        self.editColor = editColor 
-        self.changeColor = changeColor 
-        # List
-        self.ALPHALIST = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
-        'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
-        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-        self.alphalist = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
-        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-        'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         # Connect
         nameEdit.textEdited.connect(self.nameSelect)
         prefixEdit.textEdited.connect(self.prefixSelect)
@@ -163,6 +148,24 @@ class Gui(QtWidgets.QDialog):
         prefixEdit.returnPressed.connect(self.prefixSet)
         suffixEdit.returnPressed.connect(self.suffixSet)
         replaceEdit.returnPressed.connect(self.replaceSet)
+    #---------------------------------------------------
+    # Parameter
+    #---------------------------------------------------
+    def palette(self):
+        self.backColor = "background:qlineargradient(x2:1, y1:0, x2:1, y2:1, stop:0.3#aa4b6b, stop:0.5#6b6b83 stop:0.8#3b8d99)"
+        self.groupColor = "background:rgba(158, 200, 226, 0.2);color:#f5f5f5;border-style:solid;border-width:0.2px;border-color:#f5f5f5;border-radius:4px"
+        self.labelColor = "background:rgba(255, 255, 255, 0);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
+        self.editColor = "background:rgba(158, 200, 226, 0.2);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
+        self.changeColor = "background:rgba(158, 200, 226, 0.5);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
+    
+    def alphaBox(self):
+        self.ALPHALIST = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
+        'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+        self.alphalist = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
+        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+        'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     #---------------------------------------------------
     # Processing
     #---------------------------------------------------
@@ -204,118 +207,102 @@ class Gui(QtWidgets.QDialog):
     def nameSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
-        try:   
-            if self.numberBox.currentText() == 'Default':
-                for i in range(len(selection)):
-                    cmds.rename(self.nameEdit.text())
+        if self.numberBox.currentText() == 'Default':
+            for i in range(len(selection)):
+                cmds.rename(self.nameEdit.text())
                 
-            elif self.numberBox.currentText() == 'Number':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.nameEdit.text(), str(i)))
+        elif self.numberBox.currentText() == 'Number':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.nameEdit.text(), str(i)))
                 
-            elif self.numberBox.currentText() == 'ALPHABET':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.nameEdit.text(), self.ALPHALIST[i]))
+        elif self.numberBox.currentText() == 'ALPHABET':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.nameEdit.text(), self.ALPHALIST[i]))
                 
-            elif self.numberBox.currentText() == 'alphabet':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.nameEdit.text(), self.alphalist[i]))
-            
-        except Exception as e:
-            print '同名のノードがあります / There is a node with the same name',
+        elif self.numberBox.currentText() == 'alphabet':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.nameEdit.text(), self.alphalist[i]))
         
         cmds.undoInfo(closeChunk=True)
     
     def prefixSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
-        try:
-            if self.numberBox.currentText() == 'Default':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.prefixEdit.text(), 
-                    selection[i].split("|")[-1:][0]))
+        if self.numberBox.currentText() == 'Default':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.prefixEdit.text(), 
+                selection[i].split("|")[-1:][0]))
                 
-            elif self.numberBox.currentText() == 'Number':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.prefixEdit.text() + str(i), 
-                    selection[i].split("|")[-1:][0]))
+        elif self.numberBox.currentText() == 'Number':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.prefixEdit.text() + str(i), 
+                selection[i].split("|")[-1:][0]))
                 
-            elif self.numberBox.currentText() == 'ALPHABET':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.prefixEdit.text() + self.ALPHALIST[i], 
-                    selection[i].split("|")[-1:][0]))
+        elif self.numberBox.currentText() == 'ALPHABET':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.prefixEdit.text() + self.ALPHALIST[i], 
+                selection[i].split("|")[-1:][0]))
                 
-            elif self.numberBox.currentText() == 'alphabet':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(self.prefixEdit.text() + self.alphalist[i], 
-                    selection[i].split("|")[-1:][0]))
-            
-        except Exception as e:
-            print '同名のノードがあります / There is a node with the same name',
+        elif self.numberBox.currentText() == 'alphabet':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(self.prefixEdit.text() + self.alphalist[i], 
+                selection[i].split("|")[-1:][0]))
         
         cmds.undoInfo(closeChunk=True)
         
     def suffixSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
-        try:
-            if self.numberBox.currentText() == 'Default':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
-                    self.suffixEdit.text()))
+        if self.numberBox.currentText() == 'Default':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                self.suffixEdit.text()))
                     
-            elif self.numberBox.currentText() == 'Number':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][i], 
-                    self.suffixEdit.text() + str(i)))
+        elif self.numberBox.currentText() == 'Number':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                self.suffixEdit.text() + str(i)))
                 
-            elif self.numberBox.currentText() == 'ALPHABET':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
-                    self.suffixEdit.text() + self.ALPHALIST[i]))
+        elif self.numberBox.currentText() == 'ALPHABET':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                self.suffixEdit.text() + self.ALPHALIST[i]))
                 
-            elif self.numberBox.currentText() == 'alphabet':
-                for i in range(len(selection)):
-                    cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
-                    self.suffixEdit.text() + self.alphalist[i]))
-        
-        except Exception as e:
-            print '同名のノードがあります / There is a node with the same name',
+        elif self.numberBox.currentText() == 'alphabet':
+            for i in range(len(selection)):
+                cmds.rename('{}{}'.format(selection[i].split("|")[-1:][0], 
+                self.suffixEdit.text() + self.alphalist[i]))
         
         cmds.undoInfo(closeChunk=True)
         
     def replaceSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
-        try:
-            if self.numberBox.currentText() == 'Default':
-                for i in range(len(selection)):
-                    replaceName = re.sub(self.searchEdit.text(), self.replaceEdit.text(), selection[i].split("|")[-1:][0])
-                    cmds.rename(replaceName)
-            
-            elif self.numberBox.currentText() == 'Number':
-                for i in range(len(selection)):
-                    replaceNum = self.replaceEdit.text() + str(i)
-                    replaceName = re.sub(self.searchEdit.text(), replaceNum, selection[i].split("|")[-1:][0])
-                    cmds.rename(replaceName)
-            
-            elif self.numberBox.currentText() == 'ALPHABET':
-                for i in range(len(selection)):
-                    replaceALPHA = self.replaceEdit.text() + self.ALPHALIST[i]
-                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
-                    cmds.rename(replaceName)
-            
-            elif self.numberBox.currentText() == 'alphabet':
-                for i in range(len(selection)):
-                    replaceALPHA = self.replaceEdit.text() + self.alphalist[i]
-                    replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
-                    cmds.rename(replaceName)
-            
-        except Exception as e:
-            print '同名のノードがあります / There is a node with the same name',
         
-        cmds.undoInfo(closeChunk=True)
-     
+        if self.numberBox.currentText() == 'Default':
+            for i in range(len(selection)):
+                replaceName = re.sub(self.searchEdit.text(), self.replaceEdit.text(), selection[i].split("|")[-1:][0])
+                cmds.rename(replaceName)
+            
+        elif self.numberBox.currentText() == 'Number':
+            for i in range(len(selection)):
+                replaceNum = self.replaceEdit.text() + str(i)
+                replaceName = re.sub(self.searchEdit.text(), replaceNum, selection[i].split("|")[-1:][0])
+                cmds.rename(replaceName)
+            
+        elif self.numberBox.currentText() == 'ALPHABET':
+            for i in range(len(selection)):
+                replaceALPHA = self.replaceEdit.text() + self.ALPHALIST[i]
+                replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
+                cmds.rename(replaceName)
+            
+        elif self.numberBox.currentText() == 'alphabet':
+            for i in range(len(selection)):
+                replaceALPHA = self.replaceEdit.text() + self.alphalist[i]
+                replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
+                cmds.rename(replaceName)
+            
+        cmds.undoInfo(closeChunk=True)     
 #-------------------------------------------------------
 # Show
 #-------------------------------------------------------  
