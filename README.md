@@ -20,24 +20,24 @@ QuickRenamer.pyをスクリプトエディタに貼り付けてご使用くだ�
 『ツールの説明』
 
 
-Default:    連番しない
+Default :    連番しない
 
-Number:     番号で連番
+Number :     番号で連番
 
-ALPHABET:   大文字のアルファベットで連番
+ALPHABET :   大文字のアルファベットで連番
 
-alphabet:   小文字のアルファベットで連番
+alphabet :   小文字のアルファベットで連番
 
 
-Name:       新しい名前に変更
+Name :       新しい名前に変更
 
-Prefix:     前に文字を追加
+Prefix :     前に文字を追加
 
-Suffix:     後ろに文字を追加
+Suffix :     後ろに文字を追加
 
-Search:     文字列の検索(Replaceとセットで使う)
+Search :     文字列の検索(Replaceとセットで使う)
 
-Replace:    文字列の置き換え(Searchとセットで使う)
+Replace :    文字列の置き換え(Searchとセットで使う)
 
 
 ※ アルファベットでの連番は26個までしか対応しておりません。
