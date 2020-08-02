@@ -27,7 +27,7 @@ class Gui(QtWidgets.QDialog):
         # Component
         self.setWindowTitle('Quick Renamer for Maya')
         self.setFixedSize(257, 315)
-        self.setWindowFlags(QtCore.Qt.Tool|QtCore.Qt.WindowCloseButtonHint)
+        self.setWindowFlags(QtCore.Qt.Dialog|QtCore.Qt.WindowCloseButtonHint)
         # Number
         numberBox = QtWidgets.QComboBox()
         numberBox.addItems(['Default', 'Number', 'ALPHABET', 'alphabet'])
