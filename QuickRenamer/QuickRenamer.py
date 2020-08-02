@@ -25,7 +25,7 @@ class Gui(QtWidgets.QDialog):
     #---------------------------------------------------
     def design(self):
         # Component
-        self.setWindowTitle('Quick Renamer 2.0')
+        self.setWindowTitle('Quick Renamer for Maya')
         self.setFixedSize(257, 315)
         self.setWindowFlags(QtCore.Qt.Tool|QtCore.Qt.WindowCloseButtonHint)
         # Number
@@ -278,7 +278,6 @@ class Gui(QtWidgets.QDialog):
     def replaceSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
-        
         if self.numberBox.currentText() == 'Default':
             for i in range(len(selection)):
                 replaceName = re.sub(self.searchEdit.text(), self.replaceEdit.text(), selection[i].split("|")[-1:][0])
@@ -302,7 +301,7 @@ class Gui(QtWidgets.QDialog):
                 replaceName = re.sub(self.searchEdit.text(), replaceALPHA, selection[i].split("|")[-1:][0])
                 cmds.rename(replaceName)
             
-        cmds.undoInfo(closeChunk=True)     
+        cmds.undoInfo(closeChunk=True)
 #-------------------------------------------------------
 # Show
 #-------------------------------------------------------  
