@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 from maya import cmds
-from PySide2 import QtWidgets, QtCore
+from PySide2.QtWidgets import * 
+from PySide2.QtGui import *
+from PySide2.QtCore import * 
 from PySide2.QtCore import Qt
 from shiboken2 import wrapInstance
 from maya import OpenMayaUI
@@ -10,11 +12,12 @@ from maya import OpenMayaUI
 #-------------------------------------------------------
 def baseWindow():
     mainWindow = OpenMayaUI.MQtUtil.mainWindow()
-    return wrapInstance(long(mainWindow), QtWidgets.QWidget)
+    return wrapInstance(long(mainWindow), QWidget)
 #-------------------------------------------------------
 # Main
 #-------------------------------------------------------  
-class Gui(QtWidgets.QDialog):
+class Gui(QDialog):
+    
     def __init__(self, parent=baseWindow()):
         super(Gui, self).__init__(parent)
         self.palette()
@@ -24,130 +27,64 @@ class Gui(QtWidgets.QDialog):
     # Design
     #---------------------------------------------------
     def design(self):
-        # Component
         self.setWindowTitle('Quick Renamer for Maya')
-        self.setFixedSize(257, 315)
         self.setWindowFlags(QtCore.Qt.Dialog|QtCore.Qt.WindowCloseButtonHint)
-        # Number
-        numberBox = QtWidgets.QComboBox()
-        numberBox.addItems(['Default', 'Number', 'ALPHABET', 'alphabet'])
-        numberSpace = QtWidgets.QLabel()
-        numberSpace.setFixedSize(0, 0)
-        numberLayout = QtWidgets.QHBoxLayout()
-        numberGroup = QtWidgets.QGroupBox()
-        numberGroup.setLayout(numberLayout)
-        numberGroup.setFixedSize(235, 40)
-        numberLayout.addWidget(numberBox)
-        numberLayout.addWidget(numberSpace)
-        # Name
-        nameLabel = QtWidgets.QLabel(' Name')
-        nameLabel.setFixedSize(60, 20)
-        nameEdit = QtWidgets.QLineEdit()
-        nameSpace = QtWidgets.QLabel()
-        nameSpace.setFixedSize(0, 0)
-        nameLayout = QtWidgets.QHBoxLayout()
-        nameGroup = QtWidgets.QGroupBox()
-        nameGroup.setLayout(nameLayout)
-        nameGroup.setFixedSize(235, 40)
-        nameLayout.addWidget(nameLabel)
-        nameLayout.addWidget(nameEdit)
-        nameLayout.addWidget(nameSpace)
-        # Prefix
-        prefixLabel = QtWidgets.QLabel(' Prefix')
-        prefixLabel.setFixedSize(60, 20)
-        prefixEdit = QtWidgets.QLineEdit()
-        prefixSpace = QtWidgets.QLabel()
-        prefixSpace.setFixedSize(0, 0)
-        prefixLayout = QtWidgets.QHBoxLayout()
-        prefixGroup = QtWidgets.QGroupBox()
-        prefixGroup.setLayout(prefixLayout)
-        prefixGroup.setFixedSize(235, 40)
-        prefixLayout.addWidget(prefixLabel)
-        prefixLayout.addWidget(prefixEdit)
-        prefixLayout.addWidget(prefixSpace)
-        # Suffix
-        suffixLabel = QtWidgets.QLabel(' Suffix')
-        suffixLabel.setFixedSize(60, 20)
-        suffixEdit = QtWidgets.QLineEdit()
-        suffixSpace = QtWidgets.QLabel()
-        suffixSpace.setFixedSize(0, 0)
-        suffixLayout = QtWidgets.QHBoxLayout()
-        suffixGroup = QtWidgets.QGroupBox()
-        suffixGroup.setLayout(suffixLayout)
-        suffixGroup.setFixedSize(235, 40)
-        suffixLayout.addWidget(suffixLabel)
-        suffixLayout.addWidget(suffixEdit)
-        suffixLayout.addWidget(suffixSpace)
-        # Search
-        searchLabel = QtWidgets.QLabel(' Search')
-        searchLabel.setFixedSize(60, 20)
-        searchEdit = QtWidgets.QLineEdit()
-        searchSpace = QtWidgets.QLabel()
-        searchSpace.setFixedSize(0, 0)
-        searchLayout = QtWidgets.QHBoxLayout()
-        searchGroup = QtWidgets.QGroupBox()
-        searchGroup.setLayout(searchLayout)
-        searchGroup.setFixedSize(235, 40)
-        searchLayout.addWidget(searchLabel)
-        searchLayout.addWidget(searchEdit)
-        searchLayout.addWidget(searchSpace)
-        # Replace
-        replaceLabel = QtWidgets.QLabel(' Replace')
-        replaceLabel.setFixedSize(60, 20)
-        replaceEdit = QtWidgets.QLineEdit()
-        replaceSpace = QtWidgets.QLabel()
-        replaceSpace.setFixedSize(0, 0)
-        replaceLayout = QtWidgets.QHBoxLayout()
-        replaceGroup = QtWidgets.QGroupBox()
-        replaceGroup.setLayout(replaceLayout)
-        replaceGroup.setFixedSize(235, 40)
-        replaceLayout.addWidget(replaceLabel)
-        replaceLayout.addWidget(replaceEdit)
-        replaceLayout.addWidget(replaceSpace)
-        # OutputLayout
-        outputLayout = QtWidgets.QVBoxLayout(self)
-        outputLayout.addWidget(numberGroup)
-        outputLayout.addWidget(nameGroup)
-        outputLayout.addWidget(prefixGroup)
-        outputLayout.addWidget(suffixGroup)
-        outputLayout.addWidget(searchGroup)
-        outputLayout.addWidget(replaceGroup)
-        # Color
         self.setStyleSheet(self.backColor)
-        numberGroup.setStyleSheet(self.groupColor)
-        nameGroup.setStyleSheet(self.groupColor)
-        prefixGroup.setStyleSheet(self.groupColor)
-        suffixGroup.setStyleSheet(self.groupColor)
-        searchGroup.setStyleSheet(self.groupColor)
-        replaceGroup.setStyleSheet(self.groupColor)
-        numberBox.setStyleSheet(self.labelColor)
-        nameLabel.setStyleSheet(self.labelColor)
-        nameEdit.setStyleSheet(self.editColor)
-        prefixLabel.setStyleSheet(self.labelColor)
-        prefixEdit.setStyleSheet(self.editColor)
-        suffixLabel.setStyleSheet(self.labelColor)
-        suffixEdit.setStyleSheet(self.editColor)
-        searchLabel.setStyleSheet(self.labelColor)
-        searchEdit.setStyleSheet(self.editColor)
-        replaceLabel.setStyleSheet(self.labelColor)
-        replaceEdit.setStyleSheet(self.editColor)
+        self.setFixedSize(257, 315)
+        self.numberBox = []
+        self.groupBox = []
+        self.layoutBox = []
+        self.labelBox = []
+        self.labelTextBox = [" Name", " Prefix", " Suffix", " Search", " Replace"]
+        self.editBox = []
+        self.outputLayout = QVBoxLayout(self)
+        for i in range(6):
+            self.groupBox.append(QGroupBox())
+            self.groupBox[i].setFixedSize(235, 40)
+            self.layoutBox.append(QHBoxLayout())
+            self.groupBox[i].setLayout(self.layoutBox[i]) 
+            self.outputLayout.addWidget(self.groupBox[i])
+
+            self.groupBox[i].setStyleSheet(self.groupColor)
+            if i == 0:
+                self.numberBox.append(QComboBox())
+                self.numberBox[i].addItems(["Default", "Number", "ALPHABET", "alphabet"])
+                self.numberBox[i].setStyleSheet(self.labelColor)
+                self.layoutBox[i].addWidget(self.numberBox[i])
+                
+            else:
+                self.labelBox.append(QLabel(self.labelTextBox[i-1]))
+                self.labelBox[i-1].setFixedSize(60, 20)
+                self.labelBox[i-1].setAlignment(Qt.AlignLeft | Qt.AlignLeft)
+                self.labelBox[i-1].setStyleSheet(self.labelColor)
+
+                self.editBox.append(QLineEdit())
+                self.editBox[i-1].setStyleSheet(self.editColor)
+                self.layoutBox[i].addWidget(self.labelBox[i-1])
+                self.layoutBox[i].addWidget(self.editBox[i-1])
+
         # Instance
-        self.numberBox = numberBox
-        self.nameEdit = nameEdit
-        self.prefixEdit = prefixEdit
-        self.suffixEdit = suffixEdit
-        self.searchEdit = searchEdit
-        self.replaceEdit = replaceEdit
+        self.numberBox = self.numberBox[0]
+        self.nameEdit = self.editBox[0]
+        self.prefixEdit = self.editBox[1]
+        self.suffixEdit = self.editBox[2]
+        self.searchEdit = self.editBox[3]
+        self.replaceEdit = self.editBox[4]
         # Connect
-        nameEdit.textEdited.connect(self.nameSelect)
-        prefixEdit.textEdited.connect(self.prefixSelect)
-        suffixEdit.textEdited.connect(self.suffixSelect)
-        searchEdit.textEdited.connect(self.searchSelect)
-        replaceEdit.textEdited.connect(self.replaceSelect)
-        nameEdit.returnPressed.connect(self.nameSet)
-        prefixEdit.returnPressed.connect(self.prefixSet)
-        suffixEdit.returnPressed.connect(self.suffixSet)
-        replaceEdit.returnPressed.connect(self.replaceSet)
+        self.nameEdit.textEdited.connect(lambda:self.callBackColor(self.changeColor, 
+        self.editColor, self.editColor, self.editColor, self.editColor))
+        self.prefixEdit.textEdited.connect(lambda:self.callBackColor(self.editColor, 
+        self.changeColor, self.editColor, self.editColor, self.editColor))
+        self.suffixEdit.textEdited.connect(lambda:self.callBackColor(self.editColor, 
+        self.editColor, self.changeColor, self.editColor, self.editColor))
+        self.searchEdit.textEdited.connect(lambda:self.callBackColor(self.editColor, 
+        self.editColor, self.editColor, self.changeColor, self.editColor))
+        self.replaceEdit.textEdited.connect(lambda:self.callBackColor(self.editColor, 
+        self.editColor, self.editColor, self.editColor, self.changeColor))
+        self.nameEdit.returnPressed.connect(self.nameSet)
+        self.prefixEdit.returnPressed.connect(self.prefixSet)
+        self.suffixEdit.returnPressed.connect(self.suffixSet)
+        self.replaceEdit.returnPressed.connect(self.replaceSet)
     #---------------------------------------------------
     # Parameter
     #---------------------------------------------------
@@ -159,51 +96,18 @@ class Gui(QtWidgets.QDialog):
         self.changeColor = "background:rgba(158, 200, 226, 0.5);color:#f5f5f5;border-color:#f5f5f5;font-weight:bold"
     
     def alphaBox(self):
-        self.ALPHALIST = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
-        'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
-        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-        self.alphalist = ['a', 'b', 'c', 'd', 'e', 'f', 'g',
-        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-        'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        self.ALPHALIST = [chr(i) for i in range(65,65+26)]
+        self.alphalist = [chr(i) for i in range(97,97+26)]
     #---------------------------------------------------
     # Processing
     #---------------------------------------------------
-    def nameSelect(self):
-        self.nameEdit.setStyleSheet(self.changeColor)
-        self.prefixEdit.setStyleSheet(self.editColor)
-        self.suffixEdit.setStyleSheet(self.editColor)
-        self.searchEdit.setStyleSheet(self.editColor)
-        self.replaceEdit.setStyleSheet(self.editColor)
-    
-    def prefixSelect(self):
-        self.nameEdit.setStyleSheet(self.editColor)
-        self.prefixEdit.setStyleSheet(self.changeColor)
-        self.suffixEdit.setStyleSheet(self.editColor)
-        self.searchEdit.setStyleSheet(self.editColor)
-        self.replaceEdit.setStyleSheet(self.editColor)
-
-    def suffixSelect(self):
-        self.nameEdit.setStyleSheet(self.editColor)
-        self.prefixEdit.setStyleSheet(self.editColor)
-        self.suffixEdit.setStyleSheet(self.changeColor)
-        self.searchEdit.setStyleSheet(self.editColor)
-        self.replaceEdit.setStyleSheet(self.editColor)
-    
-    def searchSelect(self):
-        self.nameEdit.setStyleSheet(self.editColor)
-        self.prefixEdit.setStyleSheet(self.editColor)
-        self.suffixEdit.setStyleSheet(self.editColor)
-        self.searchEdit.setStyleSheet(self.changeColor)
-        self.replaceEdit.setStyleSheet(self.editColor)
-    
-    def replaceSelect(self):
-        self.nameEdit.setStyleSheet(self.editColor)
-        self.prefixEdit.setStyleSheet(self.editColor)
-        self.suffixEdit.setStyleSheet(self.editColor)
-        self.searchEdit.setStyleSheet(self.editColor)
-        self.replaceEdit.setStyleSheet(self.changeColor)
-        
+    def callBackColor(self, color0, color1, color2, color3, color4):
+        self.nameEdit.setStyleSheet(color0)
+        self.prefixEdit.setStyleSheet(color1)
+        self.suffixEdit.setStyleSheet(color2)
+        self.searchEdit.setStyleSheet(color3)
+        self.replaceEdit.setStyleSheet(color4)
+          
     def nameSet(self):
         cmds.undoInfo(openChunk=True)
         selection = cmds.ls(sl=True)
